@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.emc.xcp;
+package com.emc.xcp.dao.impl;
 
 /**
  * @author jajarp

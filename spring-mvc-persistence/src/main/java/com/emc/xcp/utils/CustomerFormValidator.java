@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.emc.xcp;
+package com.emc.xcp.utils;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

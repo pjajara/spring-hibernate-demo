@@ -1,12 +1,13 @@
 /**
  * 
  */
-package com.emc.xcp;
+package com.emc.xcp.controller;
 
 /**
  * @author jajarp
  *
  */
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
