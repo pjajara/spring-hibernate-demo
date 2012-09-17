@@ -8,6 +8,7 @@ package com.emc.xcp.utils;
  *
  */
 
+import com.emc.xcp.domain.Contact;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
