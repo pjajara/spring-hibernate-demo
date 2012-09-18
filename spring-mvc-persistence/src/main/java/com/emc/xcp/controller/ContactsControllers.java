@@ -10,6 +10,9 @@ package com.emc.xcp.controller;
 
 
 import java.text.SimpleDateFormat;
+import com.emc.xcp.utils.*;
+import com.emc.xcp.domain.Contact;
+import com.emc.xcp.dao.impl.ContactDAOImpl;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ContactsControllers {
 	@Autowired
-	private ContactsDAO contactsDAO;
+	private ContactDAOImpl contactsDAO;
 
 	@Autowired
 	private ContactFormValidator validator;

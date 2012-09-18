@@ -7,6 +7,8 @@ package com.emc.xcp.dao.impl;
  * @author jajarp
  *
  */
+import com.emc.xcp.dao.CustomerDAO;
+import com.emc.xcp.domain.Customer;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class CustomerDAO {
+public class CustomerDAOImpl implements CustomerDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
