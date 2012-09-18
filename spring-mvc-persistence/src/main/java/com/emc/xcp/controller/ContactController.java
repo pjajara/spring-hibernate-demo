@@ -58,7 +58,7 @@ public class ContactController {
 	@RequestMapping("/viewAllContacts")
 	public ModelAndView getAllContacts() {
 		ModelAndView mav = new ModelAndView("showContacts");
-		List<Contact> contacts = contactsDAO.getAllContacts();
+		List<Contact> contacts = contactDAO.getAllContacts();
 		mav.addObject("SEARCH_CONTACTS_RESULTS_KEY", contacts);
 		return mav;
 	}
@@ -78,7 +78,7 @@ public class ContactController {
 		if (result.hasErrors()) {
 			return "newContact";
 		}
-		contactsDAO.save(contact);
+		contactDAO.save(contact);
 		status.setComplete();
 		return "redirect:viewAllContacts.do";
 	}
@@ -86,7 +86,7 @@ public class ContactController {
 	@RequestMapping(value = "/updateContact", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam("id") Integer id) {
 		ModelAndView mav = new ModelAndView("editContact");
-		Contact contact = contactsDAO.getById(id);
+		Contact contact = contactDAO.getById(id);
 		mav.addObject("editContact", contact);
 		return mav;
 	}
@@ -98,7 +98,7 @@ public class ContactController {
 		if (result.hasErrors()) {
 			return "editContact";
 		}
-		contactsDAO.update(contact);
+		contactDAO.update(contact);
 		status.setComplete();
 		return "redirect:viewAllContacts.do";
 	}
@@ -106,7 +106,7 @@ public class ContactController {
 	@RequestMapping("deleteContact")
 	public ModelAndView delete(@RequestParam("id") Integer id) {
 		ModelAndView mav = new ModelAndView("redirect:viewAllContacts.do");
-		contactsDAO.delete(id);
+		contactDAO.delete(id);
 		return mav;
 	}
 }
