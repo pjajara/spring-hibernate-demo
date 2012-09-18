@@ -14,7 +14,6 @@ import com.emc.xcp.domain.Customer;
  * 
  */
 public interface CustomerDAO {
-	SessionFactory sessionFactory = null;
 
 	public Customer getById(int id);
 

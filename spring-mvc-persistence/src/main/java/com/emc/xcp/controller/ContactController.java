@@ -12,6 +12,7 @@ package com.emc.xcp.controller;
 import java.text.SimpleDateFormat;
 import com.emc.xcp.utils.*;
 import com.emc.xcp.domain.Contact;
+import com.emc.xcp.dao.ContactDAO;
 import com.emc.xcp.dao.impl.ContactDAOImpl;
 import java.util.Date;
 import java.util.List;
@@ -30,12 +31,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ContactsControllers {
+public class ContactController {
 	@Autowired
-	private ContactDAOImpl contactsDAO;
+	private ContactDAO contactDAO;
 
 	@Autowired
-	private ContactFormValidator validator;
+	private ContactFormValidator contactFormValidator;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -49,7 +50,7 @@ public class ContactsControllers {
 	public ModelAndView searchContacts(
 			@RequestParam(required = false, defaultValue = "") String name) {
 		ModelAndView mav = new ModelAndView("showContacts");
-		List<Contact> contacts = contactsDAO.searchContacts(name.trim());
+		List<Contact> contacts = contactDAO.searchContacts(name.trim());
 		mav.addObject("SEARCH_CONTACTS_RESULTS_KEY", contacts);
 		return mav;
 	}
@@ -73,7 +74,7 @@ public class ContactsControllers {
 	@RequestMapping(value = "/saveContact", method = RequestMethod.POST)
 	public String create(@ModelAttribute("newContact") Contact contact,
 			BindingResult result, SessionStatus status) {
-		validator.validate(contact, result);
+		contactFormValidator.validate(contact, result);
 		if (result.hasErrors()) {
 			return "newContact";
 		}
@@ -93,7 +94,7 @@ public class ContactsControllers {
 	@RequestMapping(value = "/updateContact", method = RequestMethod.POST)
 	public String update(@ModelAttribute("editContact") Contact contact,
 			BindingResult result, SessionStatus status) {
-		validator.validate(contact, result);
+		contactFormValidator.validate(contact, result);
 		if (result.hasErrors()) {
 			return "editContact";
 		}

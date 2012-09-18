@@ -7,8 +7,7 @@ import org.hibernate.SessionFactory;
 import com.emc.xcp.domain.Contact;
 
 public interface ContactDAO {
-	SessionFactory sessionFactory = null;
-
+	
 	public Contact getById(int id);
 
 	public List<Contact> searchContacts(String name);
