@@ -6,6 +6,7 @@ package com.emc.xcp.controller;
 import java.util.List;
 import com.emc.xcp.utils.*;
 import com.emc.xcp.domain.Customer;
+import com.emc.xcp.dao.CustomerDAO;
 import com.emc.xcp.dao.impl.CustomerDAOImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CustomerController {
 
 	@Autowired
-	private CustomerDAOImpl customerDAOImpl;
+	private CustomerDAO customerDAO;
 	
 	@Autowired
 	private CustomerFormValidator customerFormValidator;
@@ -36,7 +37,7 @@ public class CustomerController {
 	@RequestMapping("/searchCustomersFirstname")
 	public ModelAndView searchCustomersByFirstName(@RequestParam(required=false, defaultValue="") String firstName ){
 		ModelAndView mav = new ModelAndView("showCustomers");
-		List<Customer> customers = customerDAOImpl.searchCustomersByFirstName(firstName);
+		List<Customer> customers = customerDAO.searchCustomersByFirstName(firstName);
 		mav.addObject("SEARCH_CUSTOMERS_RESULTS_KEY", customers);
 		return mav;
 	}
@@ -44,7 +45,7 @@ public class CustomerController {
 	@RequestMapping("/searchCustomersLastname")
 	public ModelAndView searchCustomersByLastName(@RequestParam(required=false, defaultValue="") String lastName ){
 		ModelAndView mav = new ModelAndView("showCustomers");
-		List<Customer> customers = customerDAOImpl.searchCustomerByLastName(lastName);
+		List<Customer> customers = customerDAO.searchCustomerByLastName(lastName);
 		mav.addObject("SEARCH_CUSTOMERS_RESULTS_KEY", customers);
 		return mav;
 	}
@@ -52,7 +53,7 @@ public class CustomerController {
 	@RequestMapping("/viewAllCustomers")
 	public ModelAndView getAllCustomers(){
 		ModelAndView mav = new ModelAndView("showCustomers");
-		List<Customer> customers = customerDAOImpl.getAllCustomers();
+		List<Customer> customers = customerDAO.getAllCustomers();
 		mav.addObject("SEARCH_CUSTOMERS_RESULTS_KEY", customers);
 		return mav;
 	}
@@ -71,7 +72,7 @@ public class CustomerController {
 		if(result.hasErrors()){
 			return "newCustomer";
 		}
-		customerDAOImpl.save(customer);
+		customerDAO.save(customer);
 		status.setComplete();
 		return "redirect:viewAllCustomers.do";
 	}
@@ -79,7 +80,7 @@ public class CustomerController {
 	@RequestMapping(value="/updateCustomer", method=RequestMethod.GET)
 	public ModelAndView editCustomer(@RequestParam("id") Integer id){
 		ModelAndView mav = new ModelAndView("editCustomer");
-		Customer customer = customerDAOImpl.getById(id);
+		Customer customer = customerDAO.getById(id);
 		mav.addObject("editCustomer", customer);
 		return mav;
 	}
@@ -90,7 +91,7 @@ public class CustomerController {
 		if(result.hasErrors()){
 			return "editCustomer";
 		}
-		customerDAOImpl.update(customer);
+		customerDAO.update(customer);
 		status.setComplete();
 		return "redirect:viewAllCustomers.do";
 	}
@@ -98,7 +99,7 @@ public class CustomerController {
 	@RequestMapping(value="/deleteCustomer")
 	public ModelAndView deleteCustomer(@RequestParam("id") Integer id){
 		ModelAndView mav = new ModelAndView("redirect:viewAllCustomers.do");
-		customerDAOImpl.delete(id);
+		customerDAO.delete(id);
 		return mav;
 	}
 	
