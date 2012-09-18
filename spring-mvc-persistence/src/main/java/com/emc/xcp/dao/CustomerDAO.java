@@ -26,6 +26,7 @@ public interface CustomerDAO {
 	public int save(Customer customer);
 
 	public void update(Customer customer);
+
 	public void delete(int id);
 
 }
