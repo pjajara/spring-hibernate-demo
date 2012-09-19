@@ -46,7 +46,7 @@ public class ContactController {
 				dateFormat, true));
 	}
 
-	@RequestMapping("/searchContacts")
+	@RequestMapping(value="/searchContacts", method=RequestMethod.GET)
 	public ModelAndView searchContacts(
 			@RequestParam(required = false, defaultValue = "") String name) {
 		ModelAndView mav = new ModelAndView("showContacts");
@@ -55,7 +55,7 @@ public class ContactController {
 		return mav;
 	}
 
-	@RequestMapping("/viewAllContacts")
+	@RequestMapping(value="/viewAllContacts", method = RequestMethod.GET)
 	public ModelAndView getAllContacts() {
 		ModelAndView mav = new ModelAndView("showContacts");
 		List<Contact> contacts = contactDAO.getAllContacts();
@@ -63,7 +63,7 @@ public class ContactController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/saveContact", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveContact")
 	public ModelAndView newuserForm() {
 		ModelAndView mav = new ModelAndView("newContact");
 		Contact contact = new Contact();
@@ -103,7 +103,7 @@ public class ContactController {
 		return "redirect:viewAllContacts.do";
 	}
 
-	@RequestMapping("deleteContact")
+	@RequestMapping(value= "deleteContact")
 	public ModelAndView delete(@RequestParam("id") Integer id) {
 		ModelAndView mav = new ModelAndView("redirect:viewAllContacts.do");
 		contactDAO.delete(id);
