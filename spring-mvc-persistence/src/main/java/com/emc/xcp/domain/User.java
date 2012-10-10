@@ -22,7 +22,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private String id;
 	
 	@Column
 	private String firstname;
@@ -49,11 +49,11 @@ public class User {
 		return ToStringBuilder.reflectionToString(this);
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
