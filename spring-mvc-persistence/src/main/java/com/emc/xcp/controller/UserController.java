@@ -80,12 +80,15 @@ public class UserController {
 	
 	@RequestMapping(value="/users/{userId}", method=RequestMethod.PUT)
 	public ModelAndView updateUser(@RequestBody User user, @PathVariable("userId") String userId, HttpServletResponse httpServletResponse){
+//		User userToUpdate = userDao.getUserById(userId);
+		user.setId(userId);
 		userDao.updateUser(user);
 		httpServletResponse.setStatus(HttpStatus.OK.value());
 		return new ModelAndView(jsonView,DATA_FIELD,user);
+		//return null;
 	}
 	
-	@RequestMapping(value="/users/{userid}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/users/{userId}", method=RequestMethod.DELETE)
 	public ModelAndView deleteUser(@PathVariable("userId") String userId, HttpServletResponse httpServletResponse){
 		userDao.deleteUser(userId);
 		httpServletResponse.setStatus(HttpStatus.OK.value());
