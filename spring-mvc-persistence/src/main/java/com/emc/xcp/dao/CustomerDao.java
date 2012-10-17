@@ -13,7 +13,7 @@ import com.emc.xcp.domain.Customer;
  * @author jajarp
  * 
  */
-public interface CustomerDAO {
+public interface CustomerDao {
 
 	public Customer getById(int id);
 

@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 
 import com.emc.xcp.domain.Contact;
 
-public interface ContactDAO {
+public interface ContactDao {
 	
 	public Contact getById(int id);
 

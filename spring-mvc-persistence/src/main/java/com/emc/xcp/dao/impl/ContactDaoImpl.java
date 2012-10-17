@@ -8,7 +8,7 @@ package com.emc.xcp.dao.impl;
  *
  */
 import com.emc.xcp.domain.Contact;
-import com.emc.xcp.dao.ContactDAO;
+import com.emc.xcp.dao.ContactDao;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class ContactDAOImpl implements ContactDAO
+public class ContactDaoImpl implements ContactDao
 {
  @Autowired
  private SessionFactory sessionFactory;

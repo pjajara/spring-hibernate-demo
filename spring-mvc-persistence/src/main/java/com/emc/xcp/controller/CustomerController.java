@@ -6,8 +6,8 @@ package com.emc.xcp.controller;
 import java.util.List;
 import com.emc.xcp.utils.*;
 import com.emc.xcp.domain.Customer;
-import com.emc.xcp.dao.CustomerDAO;
-import com.emc.xcp.dao.impl.CustomerDAOImpl;
+import com.emc.xcp.dao.CustomerDao;
+import com.emc.xcp.dao.impl.CustomerDaoImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CustomerController {
 
 	@Autowired
-	private CustomerDAO customerDAO;
+	private CustomerDao customerDAO;
 	
 	@Autowired
 	private CustomerFormValidator customerFormValidator;
