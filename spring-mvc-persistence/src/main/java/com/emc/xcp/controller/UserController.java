@@ -20,6 +20,7 @@ import org.springframework.web.servlet.View;
 
 import com.emc.xcp.dao.UserDao;
 import com.emc.xcp.domain.User;
+import com.emc.xcp.service.UserService;
 
 /**
  * @author jajarp
@@ -29,7 +30,7 @@ import com.emc.xcp.domain.User;
 public class UserController {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 	
 	@Autowired
 	private View jsonView;
@@ -41,7 +42,7 @@ public class UserController {
 	public ModelAndView getUser(@PathVariable("userId") String userId){
 		User user = null;
 		try {
-			user = userDao.getUserById(userId);
+			user = userService.getUserById(userId);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -52,7 +53,7 @@ public class UserController {
 	public ModelAndView getUsers(){
 		List<User> users=null;
 		try{
-			users=userDao.getAllUsers();
+			users=userService.getAllUsers();
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -66,12 +67,12 @@ public class UserController {
 		String createdUserId=null;
 		
 		try{
-			createdUserId = userDao.saveUser(user);
+			createdUserId = userService.saveUser(user);
 		}
 		catch(Exception e){
 			System.out.println(e);
 		}
-		createdUser=userDao.getUserById(createdUserId);
+		createdUser=userService.getUserById(createdUserId);
 		httpServletResponse.setStatus(HttpStatus.CREATED.value());
 		httpServletResponse.setHeader("Location", webRequest.getContextPath()+"/users/"+user.getId());
 		return new ModelAndView(jsonView, DATA_FIELD,createdUser);
@@ -80,23 +81,21 @@ public class UserController {
 	
 	@RequestMapping(value="/users/{userId}", method=RequestMethod.PUT)
 	public ModelAndView updateUser(@RequestBody User user, @PathVariable("userId") String userId, HttpServletResponse httpServletResponse){
-//		User userToUpdate = userDao.getUserById(userId);
 		user.setId(userId);
-		userDao.updateUser(user);
+		userService.updateUser(user);
 		httpServletResponse.setStatus(HttpStatus.OK.value());
 		return new ModelAndView(jsonView,DATA_FIELD,user);
-		//return null;
 	}
 	
 	@RequestMapping(value="/users/{userId}", method=RequestMethod.DELETE)
 	public ModelAndView deleteUser(@PathVariable("userId") String userId, HttpServletResponse httpServletResponse){
-		userDao.deleteUser(userId);
+		userService.deleteUser(userId);
 		httpServletResponse.setStatus(HttpStatus.OK.value());
 		return new ModelAndView(jsonView, DATA_FIELD,null);
 	}
 	
-	public void setUserDao(UserDao userDao){
-		this.userDao=userDao;
+	public void setUserService(UserService userService){
+		this.userService=userService;
 	}
 	
 	public void setJsonView(View view){
