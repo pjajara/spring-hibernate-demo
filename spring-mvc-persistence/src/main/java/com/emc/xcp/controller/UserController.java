@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,8 @@ import com.emc.xcp.service.UserService;
 @Controller
 public class UserController {
 	
+	protected final static Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@Autowired
 	private UserService userService;
 	
@@ -44,7 +48,7 @@ public class UserController {
 		try {
 			user = userService.getUserById(userId);
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.debug("Exception while serving /users/" +userId + "/" + " GET request: " + e.toString()  );
 		}
 		return new ModelAndView(jsonView,DATA_FIELD,user);
 	}
@@ -56,7 +60,7 @@ public class UserController {
 			users=userService.getAllUsers();
 		}
 		catch(Exception e){
-			System.out.println(e);
+			logger.debug("Exception while serving /users/ GET request: "+ e.toString());
 		}
 		return new ModelAndView(jsonView,DATA_FIELD,users);
 	}
@@ -68,9 +72,10 @@ public class UserController {
 		
 		try{
 			createdUserId = userService.saveUser(user);
+			logger.info("POST /users/ executed, Created User ID: " + createdUserId);
 		}
 		catch(Exception e){
-			System.out.println(e);
+			logger.debug("Exception occured while serving POST /users/" + createdUserId + "/" + e.toString() );
 		}
 		createdUser=userService.getUserById(createdUserId);
 		httpServletResponse.setStatus(HttpStatus.CREATED.value());

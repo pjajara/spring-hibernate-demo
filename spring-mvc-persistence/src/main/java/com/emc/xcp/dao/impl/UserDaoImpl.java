@@ -5,6 +5,7 @@ package com.emc.xcp.dao.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import com.emc.xcp.domain.User;
 @Transactional
 public class UserDaoImpl implements UserDao {
 
+	private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -31,6 +34,7 @@ public class UserDaoImpl implements UserDao {
 	 */
 	@Override
 	public User getUserById(String id) {
+		logger.debug("Getting User by id: "+ id.toString());
 		return (User) sessionFactory.getCurrentSession().get(User.class, id);
 	}
 
@@ -49,6 +53,7 @@ public class UserDaoImpl implements UserDao {
 	 */
 	@Override
 	public String saveUser(User user) {
+		logger.debug("Saving User to database: "+ user.toString());
 		return (String) sessionFactory.getCurrentSession().save(user);
 	}
 
@@ -57,6 +62,7 @@ public class UserDaoImpl implements UserDao {
 	 */
 	@Override
 	public void updateUser(User user) {
+		logger.debug("Updating User from database: " + user.toString());
 		sessionFactory.getCurrentSession().merge(user);
 	}
 
@@ -66,6 +72,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void deleteUser(String id) {
 		User userToDelete = getUserById(id);
+		logger.debug("Deleting User from database: " + userToDelete);
 		sessionFactory.getCurrentSession().delete(userToDelete);
 	}
 
