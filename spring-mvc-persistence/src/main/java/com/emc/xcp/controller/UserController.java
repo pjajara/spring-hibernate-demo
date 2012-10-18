@@ -50,6 +50,7 @@ public class UserController {
 		} catch (Exception e) {
 			logger.debug("Exception while serving /users/" +userId + "/" + " GET request: " + e.toString()  );
 		}
+		logger.debug("GET /users/" + userId + "/" + " request received from REST Client");
 		return new ModelAndView(jsonView,DATA_FIELD,user);
 	}
 
@@ -89,6 +90,7 @@ public class UserController {
 		user.setId(userId);
 		userService.updateUser(user);
 		httpServletResponse.setStatus(HttpStatus.OK.value());
+		logger.debug("PUT /users/" + userId + "/" + " request received from REST Client");
 		return new ModelAndView(jsonView,DATA_FIELD,user);
 	}
 	
@@ -96,6 +98,7 @@ public class UserController {
 	public ModelAndView deleteUser(@PathVariable("userId") String userId, HttpServletResponse httpServletResponse){
 		userService.deleteUser(userId);
 		httpServletResponse.setStatus(HttpStatus.OK.value());
+		logger.debug("DELETE /users/" + userId + "/" + " request received from REST Client");
 		return new ModelAndView(jsonView, DATA_FIELD,null);
 	}
 	
