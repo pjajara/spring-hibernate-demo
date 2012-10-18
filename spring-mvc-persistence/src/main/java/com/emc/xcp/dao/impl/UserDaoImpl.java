@@ -28,7 +28,6 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	
 	/* (non-Javadoc)
 	 * @see com.emc.xcp.dao.UserDao#getUserById(int)
 	 */
