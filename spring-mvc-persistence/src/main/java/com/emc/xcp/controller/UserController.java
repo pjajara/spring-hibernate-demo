@@ -73,7 +73,7 @@ public class UserController {
 		
 		try{
 			createdUserId = userService.saveUser(user);
-			logger.info("POST /users/ executed, Created User ID: " + createdUserId);
+			logger.debug("POST /users/ executed, Created User ID: " + createdUserId);
 		}
 		catch(Exception e){
 			logger.debug("Exception occured while serving POST /users/" + createdUserId + "/" + e.toString() );
